@@ -40,7 +40,7 @@ def readSensors():
         'Level-1': readModbusRegisters(2073),
         'Radar-level-1': readModbusRegisters(2075),
         'Level-2': readModbusRegisters(2077),
-        'Radar-Level-2': readModbusRegisters(2079)
+        'Radar-level-2': readModbusRegisters(2079)
     }        
 
     maxRecordId += 1
