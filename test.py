@@ -1,4 +1,4 @@
-import minimalmodbus, struct, configparser
+import minimalmodbus, struct, configparser, os
 from os.path import join
 from time import sleep
 
