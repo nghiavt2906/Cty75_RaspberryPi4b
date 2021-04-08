@@ -1,8 +1,12 @@
-import minimalmodbus, struct
+import minimalmodbus, struct, configparser
+from os.path import join
 from time import sleep
 
-hmi = minimalmodbus.Instrument('COM10', 1)
-hmi.serial.baudrate = 9600
+config = configparser.ConfigParser()
+config.read(join(dirname, 'config.ini'))
+
+hmi = minimalmodbus.Instrument(config['HMI']['PORT'], config['HMI']['ID'])
+hmi.serial.baudrate = int(config['HMI']['BAUDRATE'])
 
 def readModbusRegisters(address):
     values = hmi.read_registers(address, 2)

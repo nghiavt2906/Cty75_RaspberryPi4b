@@ -10,8 +10,8 @@ config.read(join(dirname, 'config.ini'))
 
 maxRecordId = int(config['DEFAULT']['CURRENT_MAX_RECORD_ID'])
 
-hmi = minimalmodbus.Instrument(config['HMI']['PORT'], 1)
-hmi.serial.baudrate = config['HMI']['BAUDRATE']
+hmi = minimalmodbus.Instrument(config['HMI']['PORT'], config['HMI']['ID'])
+hmi.serial.baudrate = int(config['HMI']['BAUDRATE'])
 
 def readModbusRegisters(address):
     values = hmi.read_registers(address, 2)
