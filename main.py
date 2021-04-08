@@ -51,7 +51,7 @@ def readSensors():
 def saveFile(data, filename, fieldnames):
     if not os.path.exists('pending'):
         os.mkdir('pending')
-        
+
     with open(filename, mode='w', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
@@ -82,18 +82,18 @@ def main():
     start = time()
 
     while True:
-        if time() - start >= int(config['DEFAULT']['SAVE_INTERVAL']):
-            saveFile(data, filename, fieldnames)
-            data = []
-            current_timestamp = datetime.now()
-            filename = join(dirname, 'pending/{}.csv'.format(current_timestamp))
-            start = time()
+        try:
+            if time() - start >= int(config['DEFAULT']['SAVE_INTERVAL']):
+                saveFile(data, filename, fieldnames)
+                data = []
+                current_timestamp = datetime.now()
+                filename = join(dirname, 'pending/{}.csv'.format(current_timestamp))
+                start = time()
 
-        record = readSensors()
-        data.append(record)
-        # try:
-        # except:
-        #     print('Retrying...')
+            record = readSensors()
+            data.append(record)
+        except:
+            print('Retrying...')
 
         sleep(int(config['DEFAULT']['READ_INTERVAL']))
 
