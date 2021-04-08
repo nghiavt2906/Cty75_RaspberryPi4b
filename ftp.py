@@ -29,6 +29,8 @@ def sendFiles(files):
             with open(file, "rb") as file_stream:
                 ftp_client.conn.storbinary("{CMD} {FileName}".format(CMD="STOR", FileName=filename), file_stream)
 
+            if not os.path.exists(join(dirname, 'records')):
+                os.mkdir(join(dirname, 'records'))
             shutil.move(file, join(dirname, 'records/{}'.format(file)))
     except:
         ftp_client.conn.close()
