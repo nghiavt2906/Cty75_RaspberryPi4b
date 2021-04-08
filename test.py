@@ -7,7 +7,7 @@ dirname = os.path.dirname(__file__)
 config = configparser.ConfigParser()
 config.read(join(dirname, 'config.ini'))
 
-hmi = minimalmodbus.Instrument(config['HMI']['PORT'], config['HMI']['ID'])
+hmi = minimalmodbus.Instrument(config['HMI']['PORT'], int(config['HMI']['ID']))
 hmi.serial.baudrate = int(config['HMI']['BAUDRATE'])
 
 def readModbusRegisters(address):
