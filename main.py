@@ -28,10 +28,8 @@ def readModbusRegisters(address):
 
 def readSensors():
     global maxRecordId
-    maxRecordId += 1
 
     record = {
-        'Id': maxRecordId,
         'Timestamp': datetime.now(),
         'PH': readModbusRegisters(2049),
         'Temperature': readModbusRegisters(2051),
@@ -44,6 +42,9 @@ def readSensors():
         'Level-2': readModbusRegisters(2077),
         'Radar-Level-2': readModbusRegisters(2079)
     }        
+
+    maxRecordId += 1
+    record['Id'] = maxRecordId
 
     return record
 
@@ -78,18 +79,18 @@ def main():
     start = time()
 
     while True:
-        try:
-            if time() - start >= int(config['DEFAULT']['SAVE_INTERVAL']):
-                saveFile(data, filename, fieldnames)
-                data = []
-                current_timestamp = datetime.now()
-                filename = join(dirname, 'pending/{}.csv'.format(current_timestamp))
-                start = time()
+        if time() - start >= int(config['DEFAULT']['SAVE_INTERVAL']):
+            saveFile(data, filename, fieldnames)
+            data = []
+            current_timestamp = datetime.now()
+            filename = join(dirname, 'pending/{}.csv'.format(current_timestamp))
+            start = time()
 
-            record = readSensors()
-            data.append(record)
-        except:
-            print('Retrying...')
+        record = readSensors()
+        data.append(record)
+        # try:
+        # except:
+        #     print('Retrying...')
 
         sleep(int(config['DEFAULT']['READ_INTERVAL']))
 
