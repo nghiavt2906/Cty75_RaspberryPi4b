@@ -2,6 +2,8 @@ import minimalmodbus, struct, configparser
 from os.path import join
 from time import sleep
 
+dirname = os.path.dirname(__file__)
+
 config = configparser.ConfigParser()
 config.read(join(dirname, 'config.ini'))
 
