@@ -49,6 +49,9 @@ def readSensors():
     return record
 
 def saveFile(data, filename, fieldnames):
+    if not os.path.exists('pending'):
+        os.mkdir('pending')
+        
     with open(filename, mode='w', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
