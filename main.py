@@ -20,6 +20,7 @@ while not isConnected:
         isConnected = True
     except: 
         print('retry connecting to hmi...')
+        sleep(5)
 
 def readModbusRegisters(address):
     values = hmi.read_registers(address, 2)
