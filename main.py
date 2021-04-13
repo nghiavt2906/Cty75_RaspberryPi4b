@@ -87,7 +87,7 @@ def main():
                 saveFile(data, filename, fieldnames)
                 data = []
                 current_timestamp = datetime.now()
-                filename = join(dirname, 'pending/{}.csv'.format(current_timestamp))
+                filename = join(dirname, 'pending/GiaLai_CTY75_NUO_{}.csv'.format(current_timestamp))
                 start = time()
 
             record = readSensors()
